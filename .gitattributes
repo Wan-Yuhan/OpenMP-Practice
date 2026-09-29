@@ -1,0 +1,14 @@
+# 统一按 LF 入库: 否则 Windows 的 core.autocrlf 会给 .sh 塞进 CRLF,
+# 在 Linux/WSL 上跑会因为 \r 报 "bad interpreter" 之类的错
+* text=auto
+*.sh   text eol=lf
+*.c    text eol=lf
+*.py   text eol=lf
+*.md   text eol=lf
+*.txt  text eol=lf
+*.csv  text eol=lf
+
+# 二进制
+*.png  binary
+*.docx binary
+*.exe  binary

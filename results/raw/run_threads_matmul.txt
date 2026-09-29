@@ -1,0 +1,46 @@
+# ============================================================
+# run_threads_matmul.sh    2026-09-24 17:13:48
+# cpu            = AMD Ryzen 5 5625U with Radeon Graphics         
+# compiler       = gcc.exe (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r1) 16.2.0
+# build flags    = -O2 -fopenmp  (内核本身为标量, 见 run_cases.sh 说明)
+# battery_status = 2   (1=电池供电, 2=接电源)
+# clock_mhz      = 2301
+# process priority = High
+# pmax           = 12
+# omp_wait_policy= <default>
+# ============================================================
+# ---- omp_matmul check ----
+# omp_get_num_procs=12  omp_get_max_threads=12
+CHECK n=1 threads=12 rel_error=0.000e+00 checksum_serial=9.3030598386e-08 checksum_omp=9.3030598386e-08 EXACT
+  C[0][*] = 0.0000000930
+CHECK n=4 threads=12 rel_error=0.000e+00 checksum_serial=2.0370295981e-05 checksum_omp=2.0370295981e-05 EXACT
+  C[0][*] = 0.0000011697 0.0000014461 0.0000008143 0.0000008093
+  C[1][*] = 0.0000010187 0.0000012693 0.0000004874 0.0000009394
+  C[2][*] = 0.0000015523 0.0000024112 0.0000014289 0.0000017698
+  C[3][*] = 0.0000011782 0.0000017370 0.0000010408 0.0000012980
+CHECK n=64 threads=12 rel_error=0.000e+00 checksum_serial=6.6237667137e-02 checksum_omp=6.6237667137e-02 EXACT
+CHECK n=256 threads=12 rel_error=0.000e+00 checksum_serial=4.1547830533e+00 checksum_omp=4.1547830533e+00 EXACT
+DONE check
+# ---- omp_matmul threads ----
+# omp_get_num_procs=12  omp_get_max_threads=12  pmax=12 rounds=7
+SWEEP big n=1024 flops_per_mm=2.1475e+09 calib_1thread=0.396000 s reps=2 timed_flops=4.2950e+09 rounds=7
+CHECK prog=matmul_big rel_error=0.000e+00
+SCALE prog=matmul_big n=1024 threads=1 mean=0.791571 min=0.743000 max=0.857000 sd=0.044090 cv=5.6 per_mm=0.395786 speedup=1.000 speedup_min=1.000 efficiency=1.000 perf=5425.87 MFLOP/s
+SCALE prog=matmul_big n=1024 threads=2 mean=0.434429 min=0.381000 max=0.536000 sd=0.052497 cv=12.1 per_mm=0.217214 speedup=1.822 speedup_min=1.950 efficiency=0.911 perf=9886.47 MFLOP/s
+SCALE prog=matmul_big n=1024 threads=3 mean=0.329714 min=0.271000 max=0.454000 sd=0.060049 cv=18.2 per_mm=0.164857 speedup=2.401 speedup_min=2.742 efficiency=0.800 perf=13026.33 MFLOP/s
+SCALE prog=matmul_big n=1024 threads=4 mean=0.357429 min=0.232000 max=0.646000 sd=0.164553 cv=46.0 per_mm=0.178714 speedup=2.215 speedup_min=3.203 efficiency=0.554 perf=12016.29 MFLOP/s
+SCALE prog=matmul_big n=1024 threads=6 mean=0.285429 min=0.196000 max=0.478000 sd=0.100063 cv=35.1 per_mm=0.142714 speedup=2.773 speedup_min=3.791 efficiency=0.462 perf=15047.43 MFLOP/s
+SCALE prog=matmul_big n=1024 threads=8 mean=0.263143 min=0.208000 max=0.362000 sd=0.067900 cv=25.8 per_mm=0.131571 speedup=3.008 speedup_min=3.572 efficiency=0.376 perf=16321.81 MFLOP/s
+SCALE prog=matmul_big n=1024 threads=10 mean=0.236857 min=0.193000 max=0.334000 sd=0.046283 cv=19.5 per_mm=0.118429 speedup=3.342 speedup_min=3.850 efficiency=0.334 perf=18133.15 MFLOP/s
+SCALE prog=matmul_big n=1024 threads=12 mean=0.225286 min=0.216000 max=0.238000 sd=0.007783 cv=3.5 per_mm=0.112643 speedup=3.514 speedup_min=3.440 efficiency=0.293 perf=19064.54 MFLOP/s
+SWEEP small n=256 flops_per_mm=3.3554e+07 calib_1thread=0.006000 s reps=67 timed_flops=2.2481e+09 rounds=7
+CHECK prog=matmul_small rel_error=0.000e+00
+SCALE prog=matmul_small n=256 threads=1 mean=0.390143 min=0.377000 max=0.413000 sd=0.013643 cv=3.5 per_mm=0.005823 speedup=1.000 speedup_min=1.000 efficiency=1.000 perf=5762.37 MFLOP/s
+SCALE prog=matmul_small n=256 threads=2 mean=0.214857 min=0.202000 max=0.232000 sd=0.011978 cv=5.6 per_mm=0.003207 speedup=1.816 speedup_min=1.866 efficiency=0.908 perf=10463.45 MFLOP/s
+SCALE prog=matmul_small n=256 threads=3 mean=0.162857 min=0.148000 max=0.195000 sd=0.015507 cv=9.5 per_mm=0.002431 speedup=2.396 speedup_min=2.547 efficiency=0.799 perf=13804.41 MFLOP/s
+SCALE prog=matmul_small n=256 threads=4 mean=0.137857 min=0.123000 max=0.180000 sd=0.019187 cv=13.9 per_mm=0.002058 speedup=2.830 speedup_min=3.065 efficiency=0.708 perf=16307.80 MFLOP/s
+SCALE prog=matmul_small n=256 threads=6 mean=0.123000 min=0.091000 max=0.264000 sd=0.062562 cv=50.9 per_mm=0.001836 speedup=3.172 speedup_min=4.143 efficiency=0.529 perf=18277.62 MFLOP/s
+SCALE prog=matmul_small n=256 threads=8 mean=0.117000 min=0.108000 max=0.129000 sd=0.006733 cv=5.8 per_mm=0.001746 speedup=3.335 speedup_min=3.491 efficiency=0.417 perf=19214.94 MFLOP/s
+SCALE prog=matmul_small n=256 threads=10 mean=0.120143 min=0.095000 max=0.212000 sd=0.041743 cv=34.7 per_mm=0.001793 speedup=3.247 speedup_min=3.968 efficiency=0.325 perf=18712.28 MFLOP/s
+SCALE prog=matmul_small n=256 threads=12 mean=0.112429 min=0.102000 max=0.128000 sd=0.010245 cv=9.1 per_mm=0.001678 speedup=3.470 speedup_min=3.696 efficiency=0.289 perf=19996.22 MFLOP/s
+DONE threads

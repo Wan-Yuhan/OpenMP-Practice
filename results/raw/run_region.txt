@@ -1,0 +1,22 @@
+# ============================================================
+# run_region.sh    2026-09-24 17:14:26
+# cpu            = AMD Ryzen 5 5625U with Radeon Graphics         
+# compiler       = gcc.exe (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r1) 16.2.0
+# build flags    = -O2 -fopenmp  (内核本身为标量, 见 run_cases.sh 说明)
+# battery_status = 2   (1=电池供电, 2=接电源)
+# clock_mhz      = 2301
+# process priority = High
+# pmax           = 12
+# omp_wait_policy= <default>
+# ============================================================
+# ---- omp_daxpy region ----
+# probe=20000
+REGION_OVERHEAD threads=1 us=4.000
+REGION_OVERHEAD threads=2 us=29.200
+REGION_OVERHEAD threads=3 us=41.150
+REGION_OVERHEAD threads=4 us=43.950
+REGION_OVERHEAD threads=6 us=50.050
+REGION_OVERHEAD threads=8 us=47.600
+REGION_OVERHEAD threads=10 us=55.000
+REGION_OVERHEAD threads=12 us=62.150
+DONE region

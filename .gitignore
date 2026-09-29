@@ -1,0 +1,16 @@
+# 编译产物
+*.exe
+*.o
+*.obj
+*.dll
+
+# Python
+__pycache__/
+*.pyc
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+~$*

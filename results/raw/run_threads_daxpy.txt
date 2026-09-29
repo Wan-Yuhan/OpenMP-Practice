@@ -1,0 +1,44 @@
+# ============================================================
+# run_threads_daxpy.sh    2026-09-24 17:05:00
+# cpu            = AMD Ryzen 5 5625U with Radeon Graphics         
+# compiler       = gcc.exe (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r1) 16.2.0
+# build flags    = -O2 -fopenmp  (内核本身为标量, 见 run_cases.sh 说明)
+# battery_status = 2   (1=电池供电, 2=接电源)
+# clock_mhz      = 2301
+# process priority = High
+# pmax           = 12
+# omp_wait_policy= <default>
+# ============================================================
+# ---- omp_daxpy threads ----
+# omp_get_num_procs=12  omp_get_max_threads=12  pmax=12
+SWEEP small vec_size=1024 nloop=10000000 flops=2.0480e+10 rounds=5
+SCALE prog=daxpy_small threads=1 mean=3.111000 min=2.993000 max=3.246000 sd=0.106405 cv=3.4 speedup=1.000 speedup_min=1.000 efficiency=1.000 perf=6583.09 MFLOP/s
+SCALE prog=daxpy_small threads=2 mean=3.447200 min=3.139000 max=3.825000 sd=0.281466 cv=8.2 speedup=0.902 speedup_min=0.953 efficiency=0.451 perf=5941.05 MFLOP/s
+SCALE prog=daxpy_small threads=3 mean=5.578000 min=4.869000 max=6.400000 sd=0.578752 cv=10.4 speedup=0.558 speedup_min=0.615 efficiency=0.186 perf=3671.57 MFLOP/s
+SCALE prog=daxpy_small threads=4 mean=5.480000 min=5.141000 max=6.092000 sd=0.376945 cv=6.9 speedup=0.568 speedup_min=0.582 efficiency=0.142 perf=3737.23 MFLOP/s
+SCALE prog=daxpy_small threads=6 mean=5.171800 min=4.807000 max=5.737000 sd=0.365145 cv=7.1 speedup=0.602 speedup_min=0.623 efficiency=0.100 perf=3959.94 MFLOP/s
+SCALE prog=daxpy_small threads=8 mean=4.545200 min=4.204000 max=5.417000 sd=0.518889 cv=11.4 speedup=0.684 speedup_min=0.712 efficiency=0.086 perf=4505.85 MFLOP/s
+SCALE prog=daxpy_small threads=10 mean=3.993800 min=3.657000 max=4.609000 sd=0.438969 cv=11.0 speedup=0.779 speedup_min=0.818 efficiency=0.078 perf=5127.95 MFLOP/s
+SCALE prog=daxpy_small threads=12 mean=3.514000 min=3.404000 max=3.748000 sd=0.134307 cv=3.8 speedup=0.885 speedup_min=0.879 efficiency=0.074 perf=5828.12 MFLOP/s
+CHECK prog=daxpy_small checksum=1.5750241216e+05
+SWEEP mid vec_size=10000 nloop=1000000 flops=2.0000e+10 rounds=5
+SCALE prog=daxpy_mid threads=1 mean=3.648800 min=3.471000 max=3.803000 sd=0.128981 cv=3.5 speedup=1.000 speedup_min=1.000 efficiency=1.000 perf=5481.25 MFLOP/s
+SCALE prog=daxpy_mid threads=2 mean=6.571800 min=5.909000 max=7.475000 sd=0.647989 cv=9.9 speedup=0.555 speedup_min=0.587 efficiency=0.278 perf=3043.31 MFLOP/s
+SCALE prog=daxpy_mid threads=3 mean=5.736000 min=4.991000 max=6.638000 sd=0.723603 cv=12.6 speedup=0.636 speedup_min=0.695 efficiency=0.212 perf=3486.75 MFLOP/s
+SCALE prog=daxpy_mid threads=4 mean=4.181800 min=3.810000 max=4.720000 sd=0.347128 cv=8.3 speedup=0.873 speedup_min=0.911 efficiency=0.218 perf=4782.63 MFLOP/s
+SCALE prog=daxpy_mid threads=6 mean=3.060000 min=2.817000 max=3.957000 sd=0.501792 cv=16.4 speedup=1.192 speedup_min=1.232 efficiency=0.199 perf=6535.95 MFLOP/s
+SCALE prog=daxpy_mid threads=8 mean=2.647800 min=2.449000 max=3.332000 sd=0.383731 cv=14.5 speedup=1.378 speedup_min=1.417 efficiency=0.172 perf=7553.44 MFLOP/s
+SCALE prog=daxpy_mid threads=10 mean=2.242600 min=2.170000 max=2.288000 sd=0.048855 cv=2.2 speedup=1.627 speedup_min=1.600 efficiency=0.163 perf=8918.22 MFLOP/s
+SCALE prog=daxpy_mid threads=12 mean=2.472800 min=2.114000 max=3.147000 sd=0.439481 cv=17.8 speedup=1.476 speedup_min=1.642 efficiency=0.123 perf=8088.00 MFLOP/s
+CHECK prog=daxpy_mid checksum=1.5154631816e+06
+SWEEP big vec_size=100000 nloop=100000 flops=2.0000e+10 rounds=5
+SCALE prog=daxpy_big threads=1 mean=4.014400 min=3.875000 max=4.197000 sd=0.146989 cv=3.7 speedup=1.000 speedup_min=1.000 efficiency=1.000 perf=4982.06 MFLOP/s
+SCALE prog=daxpy_big threads=2 mean=4.238000 min=3.436000 max=5.331000 sd=0.698953 cv=16.5 speedup=0.947 speedup_min=1.128 efficiency=0.474 perf=4719.21 MFLOP/s
+SCALE prog=daxpy_big threads=3 mean=4.072400 min=3.464000 max=4.594000 sd=0.412214 cv=10.1 speedup=0.986 speedup_min=1.119 efficiency=0.329 perf=4911.11 MFLOP/s
+SCALE prog=daxpy_big threads=4 mean=2.620000 min=2.343000 max=3.311000 sd=0.403658 cv=15.4 speedup=1.532 speedup_min=1.654 efficiency=0.383 perf=7633.59 MFLOP/s
+SCALE prog=daxpy_big threads=6 mean=1.850200 min=1.768000 max=2.070000 sd=0.125731 cv=6.8 speedup=2.170 speedup_min=2.192 efficiency=0.362 perf=10809.64 MFLOP/s
+SCALE prog=daxpy_big threads=8 mean=1.689800 min=1.615000 max=1.884000 sd=0.109760 cv=6.5 speedup=2.376 speedup_min=2.399 efficiency=0.297 perf=11835.72 MFLOP/s
+SCALE prog=daxpy_big threads=10 mean=1.705800 min=1.564000 max=1.955000 sd=0.147471 cv=8.6 speedup=2.353 speedup_min=2.478 efficiency=0.235 perf=11724.70 MFLOP/s
+SCALE prog=daxpy_big threads=12 mean=1.975000 min=1.738000 max=2.700000 sd=0.411220 cv=20.8 speedup=2.033 speedup_min=2.230 efficiency=0.169 perf=10126.58 MFLOP/s
+CHECK prog=daxpy_big checksum=1.5128087333e+07
+DONE threads

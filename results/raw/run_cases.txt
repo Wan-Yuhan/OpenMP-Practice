@@ -1,0 +1,64 @@
+# ============================================================
+# run_cases.sh    2026-09-24 16:51:12
+# cpu            = AMD Ryzen 5 5625U with Radeon Graphics         
+# compiler       = gcc.exe (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r1) 16.2.0
+# build flags    = -O2 -fopenmp -fno-tree-vectorize
+# battery_status = 2   (1=电池供电, 2=接电源)
+# clock_mhz      = 2301
+# process priority = High
+# nthreads       = 12
+# ============================================================
+
+########## verify ##########
+# ---- omp_daxpy verify ----
+# omp_get_num_procs=12  omp_get_max_threads=12
+VERIFY_SMALL vec_size=4 nloop=3 a=2.0
+  j=0  x=10.0  y=1.0  a*x+y=21.0  case1=21.0  case2=21.0  case3=21.0  OK
+  j=1  x=11.0  y=1.5  a*x+y=23.5  case1=23.5  case2=23.5  case3=23.5  OK
+  j=2  x=12.0  y=2.0  a*x+y=26.0  case1=26.0  case2=26.0  case3=26.0  OK
+  j=3  x=13.0  y=2.5  a*x+y=28.5  case1=28.5  case2=28.5  case3=28.5  OK
+VERIFY_SMALL maxabs case2=0 case3=0
+VERIFY vec_size=1024 nloop=1000 threads=12 maxabs_case2=0.000e+00 maxabs_case3=0.000e+00 checksum=1.5750241216e+05
+VERIFY vec_size=10000 nloop=1000 threads=12 maxabs_case2=0.000e+00 maxabs_case3=0.000e+00 checksum=1.5154631816e+06
+VERIFY vec_size=100000 nloop=1000 threads=12 maxabs_case2=0.000e+00 maxabs_case3=0.000e+00 checksum=1.5128087333e+07
+DONE verify
+
+########## cases ##########
+# ---- omp_daxpy cases ----
+# omp_get_num_procs=12  omp_get_max_threads=12  nthreads=12
+# timer_resolution=9.999e-04 s  A_SCALAR=2.0  SEED=20260924
+CONFIG 1k_x10M vec_size=1024 nloop=10000000 elements=1.0240e+10 flops=2.0480e+10 nthreads=12
+RESULT config=1k_x10M case=1 threads=1 time=3.745000 flops=2.0480e+10 perf=5468.63 MFLOP/s checksum=1.5750241216e+05
+RESULT_DETAIL config=1k_x10M case=1 rounds=3 t1=5.489000 t2=5.077000 t3=3.745000
+CHECK config=1k_x10M case=1 vs serial_reference maxabs=0.000e+00
+RESULT config=1k_x10M case=2 threads=12 time=4.480000 flops=2.0480e+10 perf=4571.43 MFLOP/s checksum=1.5750241216e+05
+RESULT_DETAIL config=1k_x10M case=2 rounds=3 t1=4.480000 t2=4.568000 t3=4.722000
+CHECK config=1k_x10M case=2 vs case=1 maxabs=0.000e+00
+RESULT config=1k_x10M case=3 threads=12 time=740.362000 flops=2.0480e+10 perf=27.66 MFLOP/s checksum=1.5750241216e+05
+CHECK config=1k_x10M case=3 vs case=1 maxabs=0.000e+00
+SPEEDUP config=1k_x10M case2_over_case1=0.836 case1_over_case3=197.693
+CONFIG 10k_x100k vec_size=10000 nloop=100000 elements=1.0000e+09 flops=2.0000e+09 nthreads=12
+RESULT config=10k_x100k case=1 threads=1 time=0.352000 flops=2.0000e+09 perf=5681.82 MFLOP/s checksum=1.5154631816e+06
+RESULT_DETAIL config=10k_x100k case=1 rounds=3 t1=0.353000 t2=0.363000 t3=0.352000
+CHECK config=10k_x100k case=1 vs serial_reference maxabs=0.000e+00
+RESULT config=10k_x100k case=2 threads=12 time=0.201000 flops=2.0000e+09 perf=9950.25 MFLOP/s checksum=1.5154631816e+06
+RESULT_DETAIL config=10k_x100k case=2 rounds=3 t1=0.528000 t2=0.201000 t3=0.239000
+CHECK config=10k_x100k case=2 vs case=1 maxabs=0.000e+00
+RESULT config=10k_x100k case=3 threads=12 time=6.743000 flops=2.0000e+09 perf=296.60 MFLOP/s checksum=1.5154631816e+06
+CHECK config=10k_x100k case=3 vs case=1 maxabs=0.000e+00
+SPEEDUP config=10k_x100k case2_over_case1=1.751 case1_over_case3=19.156
+CONFIG 100k_x100k vec_size=100000 nloop=100000 elements=1.0000e+10 flops=2.0000e+10 nthreads=12
+RESULT config=100k_x100k case=1 threads=1 time=3.982000 flops=2.0000e+10 perf=5022.60 MFLOP/s checksum=1.5128087333e+07
+RESULT_DETAIL config=100k_x100k case=1 rounds=3 t1=4.440000 t2=3.988000 t3=3.982000
+CHECK config=100k_x100k case=1 vs serial_reference maxabs=0.000e+00
+RESULT config=100k_x100k case=2 threads=12 time=2.577000 flops=2.0000e+10 perf=7760.96 MFLOP/s checksum=1.5128087333e+07
+RESULT_DETAIL config=100k_x100k case=2 rounds=3 t1=2.760000 t2=2.577000 t3=2.829000
+CHECK config=100k_x100k case=2 vs case=1 maxabs=0.000e+00
+RESULT config=100k_x100k case=3 threads=12 time=10.233000 flops=2.0000e+10 perf=1954.46 MFLOP/s checksum=1.5128087333e+07
+CHECK config=100k_x100k case=3 vs case=1 maxabs=0.000e+00
+SPEEDUP config=100k_x100k case2_over_case1=1.545 case1_over_case3=2.570
+DONE cases
+
+# battery_status_after = 2
+# clock_mhz_after      = 2301
+# finished 2026-09-24 17:04:58

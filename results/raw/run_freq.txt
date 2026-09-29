@@ -1,0 +1,21 @@
+# ============================================================
+# run_freq.sh    2026-09-24 17:17:45
+# cpu            = AMD Ryzen 5 5625U with Radeon Graphics         
+# compiler       = gcc.exe (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r1) 16.2.0
+# build flags    = -O2 -fopenmp  (内核本身为标量, 见 run_cases.sh 说明)
+# battery_status = 2   (1=电池供电, 2=接电源)
+# clock_mhz      = 2301
+# process priority = High
+# pmax           = 12
+# omp_wait_policy= <default>
+# ============================================================
+FREQ threads=1 sample=1 clock_mhz=2301
+FREQ threads=1 sample=2 clock_mhz=2301
+FREQ threads=1 sample=3 clock_mhz=2301
+FREQ threads=1 sample=4 clock_mhz=2301
+FREQ threads=1 sample=5 clock_mhz=2301
+FREQ threads=12 sample=1 clock_mhz=2301
+FREQ threads=12 sample=2 clock_mhz=2301
+FREQ threads=12 sample=3 clock_mhz=2301
+FREQ threads=12 sample=4 clock_mhz=2301
+FREQ threads=12 sample=5 clock_mhz=2301

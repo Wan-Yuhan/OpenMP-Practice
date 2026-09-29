@@ -1,0 +1,23 @@
+# ============================================================
+# run_coherence.sh    2026-09-24 17:14:36
+# cpu            = AMD Ryzen 5 5625U with Radeon Graphics         
+# compiler       = gcc.exe (MinGW-W64 x86_64-ucrt-posix-seh, built by Brecht Sanders, r1) 16.2.0
+# build flags    = -O2 -fopenmp  (内核本身为标量, 见 run_cases.sh 说明)
+# battery_status = 2   (1=电池供电, 2=接电源)
+# clock_mhz      = 2301
+# process priority = High
+# pmax           = 12
+# omp_wait_policy= <default>
+# ============================================================
+# ---- omp_daxpy coherence ----
+# vec_size=1024 nloop=10000000 rounds=3  (唯一变量: z 是共享还是每线程私有)
+SERIAL threads=1 mean=1.838333 min=1.714000
+COHERENCE threads=1 shared_z=2.845333 speedup=0.646 | private_z=3.057333 speedup=0.601
+COHERENCE threads=2 shared_z=2.764333 speedup=0.665 | private_z=1.707333 speedup=1.077
+COHERENCE threads=3 shared_z=5.460000 speedup=0.337 | private_z=1.270333 speedup=1.447
+COHERENCE threads=4 shared_z=5.473667 speedup=0.336 | private_z=1.200000 speedup=1.532
+COHERENCE threads=6 shared_z=4.877000 speedup=0.377 | private_z=1.146000 speedup=1.604
+COHERENCE threads=8 shared_z=4.280000 speedup=0.430 | private_z=1.269667 speedup=1.448
+COHERENCE threads=10 shared_z=3.814000 speedup=0.482 | private_z=0.877000 speedup=2.096
+COHERENCE threads=12 shared_z=3.441333 speedup=0.534 | private_z=1.184000 speedup=1.553
+DONE coherence
